@@ -45,8 +45,8 @@ jobs:
 
           ###merge
           deck file merge config/kong-backup.yaml config/items-deck.yaml -o config/items-deck.yaml
-          deck validate config/items-deck.yaml
-          
+          deck file validate config/items-deck.yaml
+
       - name: Apply New Configuration
         run: |
           deck gateway sync --konnect-token kpat_QjviY1aJEiJTR5Wg6egnKJOsFpD5jlXq10L4BzowGHWwlEjvR --konnect-control-plane-name "serverless-default" --tls-skip-verify config/items-deck.yaml
