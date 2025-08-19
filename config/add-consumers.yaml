@@ -5,4 +5,4 @@ patches:
       consumers:
         - keyauth_credentials:
             - key: secret-key
-          username: nic-cage-consumer
+          username: demo
