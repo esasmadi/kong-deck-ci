@@ -4,5 +4,9 @@ patches:
     values:
       consumers:
         - keyauth_credentials:
-            - key: secret-key
+            - id: 3b264e21-8e9b-4080-b745-625218446563
+              key: demo-api-key-2024
           username: demo
+          tags:
+            - managed-by-deck
+            - generated-from-oas

@@ -6,6 +6,15 @@ patches:
       _konnect:
         control_plane_name: "serverless-default"
 
+  # Add tags to all services
+  - selectors:
+      - $.services[*]
+    values:
+      tags:
+        - managed-by-deck
+        - generated-from-oas
+        - team:backend
+
   # Update target host and remove base path from service
   - selectors:
       - $.services[?(@.name=="item-api")]
@@ -33,25 +42,25 @@ patches:
       - $.services[*].routes[?(@.name=="item-api_deleteitem")]
     values:
       paths:
-        - /items/(?<id>[^#?/]+)$
+        - ~/items/(?<id>[^#?/]+)$
 
   # Patch GET /{id}
   - selectors:
       - $.services[*].routes[?(@.name=="item-api_getitembyid")]
     values:
       paths:
-        - /items/(?<id>[^#?/]+)$
+        - ~/items/(?<id>[^#?/]+)$
 
   # Patch PATCH /{id}
   - selectors:
       - $.services[*].routes[?(@.name=="item-api_patchitem")]
     values:
       paths:
-        - /items/(?<id>[^#?/]+)$
+        - ~/items/(?<id>[^#?/]+)$
 
   # Patch PUT /{id}
   - selectors:
       - $.services[*].routes[?(@.name=="item-api_updateitem")]
     values:
       paths:
-        - /items/(?<id>[^#?/]+)$
+        - ~/items/(?<id>[^#?/]+)$

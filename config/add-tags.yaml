@@ -1,0 +1,8 @@
+patches:
+  # Add tags to all routes
+  - selectors:
+      - $.services[*].routes[*]
+    values:
+      tags:
+        - managed-by-deck
+        - generated-from-oas

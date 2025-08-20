@@ -42,14 +42,23 @@ jobs:
           deck file add-plugins -s config/items-deck.yaml config/add-plugins.yaml -o config/items-deck.yaml
           # Add consumers
           deck file patch -s config/items-deck.yaml config/add-consumers.yaml -o config/items-deck.yaml
+          # Add tags to routes
+          deck file patch -s config/items-deck.yaml config/add-tags.yaml -o config/items-deck.yaml
 
-          ###merge
-          deck file merge config/kong-backup.yaml config/items-deck.yaml -o config/items-deck.yaml
+      - name: Validate Generated Configuration
+        run: |
+          echo "=== Validating Kong Configuration ==="
           deck file validate config/items-deck.yaml
+
+      - name: Show Configuration Diff
+        run: |
+          echo "=== Configuration Changes Preview ==="
+          deck gateway diff --konnect-token kpat_QjviY1aJEiJTR5Wg6egnKJOsFpD5jlXq10L4BzowGHWwlEjvR --konnect-control-plane-name "serverless-default" --tls-skip-verify --select-tag managed-by-deck config/items-deck.yaml || true
 
       - name: Apply New Configuration
         run: |
-          deck gateway sync --konnect-token kpat_QjviY1aJEiJTR5Wg6egnKJOsFpD5jlXq10L4BzowGHWwlEjvR --konnect-control-plane-name "serverless-default" --tls-skip-verify config/items-deck.yaml
+          # Use selective sync to only manage tagged resources
+          deck gateway sync --konnect-token kpat_QjviY1aJEiJTR5Wg6egnKJOsFpD5jlXq10L4BzowGHWwlEjvR --konnect-control-plane-name "serverless-default" --tls-skip-verify --select-tag managed-by-deck config/items-deck.yaml
 
       - name: Back out Changes on Failure
         if: failure()

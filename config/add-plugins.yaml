@@ -40,7 +40,7 @@ add-plugins:
           hide_client_headers: false
           identifier: consumer
           limit:
-            - 5
+            - 15
           lock_dictionary_name: kong_locks
           namespace: tePDGfhlwZBWgmoAUgIAi0pxxnAC0QYU
           path: null
